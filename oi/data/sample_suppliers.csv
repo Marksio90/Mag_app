@@ -1,4 +1,0 @@
-supplier,name,partnership_tier,sla_on_time_pct,defect_rate_pct,unit_cost_index
-S-01,Alpha Supplies,gold,0.98,0.5,1.0
-S-02,Beta Logistics,silver,0.92,1.5,0.95
-S-03,Gamma Manufacturing,bronze,0.88,2.2,0.9

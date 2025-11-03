@@ -1,21 +1,27 @@
-
+# app.py
 import streamlit as st
-from oi.core.utils import init_page
+from oi.utils import kill_streamlit_nav_header, init_session_state
+from oi.ui_components import render_topbar
 
-init_page("Główna strona — Optimal Inventory Planner")
-st.title("🏠 Główna strona")
-st.caption("Prognozy • Backtesty • SS/ROP/EOQ • Fill‑rate • Optymalizacja kosztów • Scoring dostawców • PDF/PPTX • MLflow • Optuna")
+st.set_page_config(
+    page_title="Optymalizacja zatowarowania 2025",
+    page_icon="📦",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
-st.markdown("""
-<div class="dg-card">
-  <span class="dg-badge">v3</span>
-  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:.5rem">
-    <div><div class="metric">🔁 Backtesty</div><div class="small dg-muted">MAPE / RMSE / RMSSE</div></div>
-    <div><div class="metric">🎯 Fill-rate</div><div class="small dg-muted">optymalizacja</div></div>
-    <div><div class="metric">🧠 Optuna</div><div class="small dg-muted">dobór algorytmu</div></div>
-    <div><div class="metric">📈 MLflow</div><div class="small dg-muted">logi eksperymentów</div></div>
-    <div><div class="metric">📄 PDF/PPTX</div><div class="small dg-muted">Executive</div></div>
-  </div>
-</div>
-""", unsafe_allow_html=True)
-st.info("Użyj menu **Pages** po lewej, aby przejść do modułów.")
+kill_streamlit_nav_header()
+init_session_state()
+
+render_topbar(title="📦 Zaawansowana aplikacja do prognozowania i optymalizacji zatowarowania", subtitle="AI + ML + symulacje + rekomendacje zakupowe")
+
+st.markdown(
+    """
+    Wybierz moduł z lewego paska bocznego.  
+    - **Dashboard** – bieżący stan, KPI, alerty  
+    - **Prognozy** – modele ML/TS, podgląd SKU  
+    - **Rekomendacje** – ROP, safety stock, EOQ  
+    - **Symulacje** – Monte Carlo, co-jeśli  
+    - **Ustawienia** – klucz OpenAI, parametry domyślne
+    """
+)

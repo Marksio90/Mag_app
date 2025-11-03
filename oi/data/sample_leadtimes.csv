@@ -1,5 +1,0 @@
-supplier,sku,lead_time_days_mean,lead_time_days_std,min_order_qty
-S-01,A-100,12,2,50
-S-01,B-100,20,5,40
-S-02,A-200,15,3,60
-S-03,C-001,30,7,10
