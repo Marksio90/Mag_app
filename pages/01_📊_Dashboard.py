@@ -14,18 +14,25 @@ sprzedaz = data["sprzedaz"]
 if sprzedaz is None:
     render_alert("Załaduj przynajmniej plik sprzedażowy, żeby zobaczyć KPI.", "warn")
 else:
+    # 👇 TU JEST KLUCZ – najpierw normalizujemy
     sprzedaz = normalize_sales_df(sprzedaz)
-    agg_w = aggregate_sales(sprzedaz, freq="W")
 
-    col1, col2, col3, col4 = st.columns(4)
-    with col1:
-        st.metric("Liczba rekordów sprzedaży", len(sprzedaz))
-    with col2:
-        st.metric("Liczba SKU", sprzedaz["sku"].nunique())
-    with col3:
-        st.metric("Okres danych", f"{sprzedaz['data'].min().date()} – {sprzedaz['data'].max().date()}")
-    with col4:
-        st.metric("Magazyny", sprzedaz["magazyn"].nunique() if "magazyn" in sprzedaz.columns else 1)
+    # jeśli mimo wszystko nie ma kolumny z datą – pokaż info i nie agreguj
+    if "data" not in sprzedaz.columns:
+        render_alert("Nie znaleziono kolumny z datą po normalizacji. Sprawdź nazwę kolumny w pliku (np. 'Data', 'DATA', 'data sprzedaży').", "err")
+        st.dataframe(sprzedaz.head())
+    else:
+        agg_w = aggregate_sales(sprzedaz, freq="W")
 
-    st.subheader("📈 Sprzedaż tygodniowa (agregowana)")
-    st.line_chart(agg_w.pivot_table(index="data", values="ilosc", aggfunc="sum"))
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.metric("Liczba rekordów sprzedaży", len(sprzedaz))
+        with col2:
+            st.metric("Liczba SKU", sprzedaz["sku"].nunique())
+        with col3:
+            st.metric("Okres danych", f"{sprzedaz['data'].min().date()} – {sprzedaz['data'].max().date()}")
+        with col4:
+            st.metric("Magazyny", sprzedaz["magazyn"].nunique() if "magazyn" in sprzedaz.columns else 1)
+
+        st.subheader("📈 Sprzedaż tygodniowa (agregowana)")
+        st.line_chart(agg_w.pivot_table(index="data", values="ilosc", aggfunc="sum"))
