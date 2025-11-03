@@ -1,0 +1,17 @@
+
+app:
+  name: "Optimal Inventory Planner"
+  locale: "pl"
+  default_service_level: 0.95
+  target_fill_rate: 0.98
+  currency: "PLN"
+
+ml:
+  forecast_horizon_weeks: 12
+  backtest_weeks: 12
+  algorithms: ["naive", "sma", "holt", "sarimax"]
+
+costing:
+  holding_rate: 0.20     # %/rok od ceny jednostkowej
+  ordering_cost: 150.0   # PLN / zamówienie
+  stockout_cost: 25.0    # PLN / brakująca sztuka (proxy)
