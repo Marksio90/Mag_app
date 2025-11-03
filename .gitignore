@@ -1,0 +1,28 @@
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv
+venv/
+env/
+.idea/
+.vscode/
+
+# streamlit
+.streamlit/secrets.toml
+
+# dane
+data/
+*.csv
+*.xlsx
+*.xls
+*.parquet
+
+# notebooks
+*.ipynb_checkpoints
+
+# system
+.DS_Store
+Thumbs.db
